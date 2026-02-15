@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpamSentry</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Lexend+Mega:wght@400;700;800&family=Space+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#000000",
+              "accent": "#F0FF00",
+              "brutal-bg": "#FFFFFF",
+              "neo-yellow": "#FDFF00",
+              "neo-blue": "#0051FF",
+              "neo-pink": "#FF00F5",
+              "neo-black": "#000000",
+              "neo-white": "#FFFFFF",
+              "brutal-yellow": "#FCFF00",
+              "brutal-red": "#FF0000",
+              "brutal-green": "#00FF41",
+              "background": "#FFFFFF",
+              "foreground": "#000000",
+            },
+            fontFamily: {
+              "display": ["'Lexend Mega'", "'Space Grotesk'", "sans-serif"],
+              "body": ["'Space Grotesk'", "sans-serif"],
+              "mono": ["'IBM Plex Mono'", "'Space Mono'", "monospace"]
+            },
+            borderWidth: {
+              '3': '3px',
+              '4': '4px',
+              '6': '6px',
+              '8': '8px',
+              'thin': '1px',
+              'thick': '6px'
+            },
+            boxShadow: {
+              'brutal': '8px 8px 0px 0px rgba(0, 0, 0, 1)',
+              'brutal-sm': '4px 4px 0px 0px rgba(0, 0, 0, 1)',
+              'brutal-hover': '12px 12px 0px 0px rgba(0, 0, 0, 1)',
+              'brutal-accent': '8px 8px 0px 0px #F0FF00',
+              'neo': '8px 8px 0px 0px rgba(0,0,0,1)',
+              'neo-sm': '4px 4px 0px 0px rgba(0,0,0,1)',
+              'neo-active': '2px 2px 0px 0px rgba(0,0,0,1)',
+            }
+          },
+        },
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

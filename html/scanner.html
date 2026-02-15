@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SPAMSENTRY // THREAT SCANNER</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "brutal-yellow": "#FCFF00",
+                        "brutal-red": "#FF0000",
+                        "brutal-green": "#00FF41",
+                        "background": "#FFFFFF",
+                        "foreground": "#000000",
+                    },
+                    fontFamily: {
+                        "display": ["'Space Mono'", "monospace"],
+                        "mono": ["'IBM Plex Mono'", "monospace"]
+                    },
+                    borderWidth: {
+                        "DEFAULT": "3px",
+                        "thin": "1px",
+                        "thick": "6px"
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-background text-foreground font-mono;
+            }
+            h1, h2, h3, button, nav a {
+                @apply font-display uppercase tracking-tighter;
+            }
+        }
+        .brutal-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+        }
+        .brutal-shadow-sm {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .brutal-shadow-hover:hover {
+            box-shadow: 12px 12px 0px 0px rgba(0,0,0,1);
+            transform: translate(-4px, -4px);
+        }
+        .brutal-shadow-active:active {
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
+            transform: translate(8px, 8px);
+        }
+        textarea {
+            border-radius: 0 !important;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brutal-yellow selection:text-black">
+<nav class="fixed top-0 w-full z-50 bg-white border-b-thick border-black">
+<div class="max-w-screen-2xl mx-auto px-6">
+<div class="flex justify-between items-center h-20">
+<div class="flex items-center gap-4 border-r-thick border-black h-20 pr-8">
+<div class="w-10 h-10 bg-black text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">shield</span>
+</div>
+<span class="font-bold text-2xl">SPAMSENTRY</span>
+</div>
+<div class="hidden md:flex h-20">
+<a class="flex items-center px-8 border-l-thick border-black bg-brutal-yellow font-bold hover:invert transition-all" href="#">SCANNER</a>
+<a class="flex items-center px-8 border-l-thick border-black hover:bg-black hover:text-white transition-all" href="#">HISTORY</a>
+<a class="flex items-center px-8 border-l-thick border-black hover:bg-black hover:text-white transition-all" href="#">API_DOCS</a>
+<a class="flex items-center px-8 border-l-thick border-black hover:bg-black hover:text-white transition-all" href="#">SYSTEM</a>
+</div>
+<div class="flex items-center gap-0 h-20">
+<button class="h-20 w-20 border-l-thick border-black flex items-center justify-center hover:bg-brutal-yellow transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-20 w-20 border-l-thick border-black overflow-hidden bg-black">
+<img alt="User profile avatar" class="w-full h-full object-cover filter grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnod8Mc1fuydDi-l701minfZf8t8os1EdiB16PkhSg56ybffLh-ztzVTXrQyrtnybCbda5dMEecPHR8Mvct_Z_0eX1DvSg_GXFBZxQgl_hqPiCrgg5Y-dtqt5QEdr3fYIZMOH0p5YKyFZstm82E8lIO3iI04H8vZFaKWds3AOdFro7I6jEzFdOT7gq9Dtk-M3MD4RHpai76Gy8q4ijpnWgjRBd79zm6VChgZdwSzti9V_X6Ze8hqckDSCbrHKUzza4fIzRKqgbwEpl"/>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<main class="relative pt-32 pb-24 px-6 max-w-screen-2xl mx-auto">
+<div class="mb-16 border-l-thick border-black pl-8">
+<h1 class="text-6xl md:text-8xl font-bold leading-none mb-6">
+            MESSAGE SCANNER:<br/>IMMEDIATE THREAT DETECTION.
+        </h1>
+<p class="text-xl max-w-2xl font-bold uppercase bg-black text-white p-2 inline-block">
+            SYSTEM STATUS: OPERATIONAL // AI-LAYER: ACTIVE
+        </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<div class="lg:col-span-8">
+<div class="bg-white border-thick border-black brutal-shadow">
+<div class="bg-black text-white p-4 font-display font-bold flex justify-between items-center">
+<span>INPUT_BUFFER_01</span>
+<span class="text-brutal-yellow">READY_FOR_ANALYSIS</span>
+</div>
+<div class="relative">
+<textarea class="block w-full border-0 p-8 text-black placeholder:text-zinc-400 focus:ring-0 text-xl font-mono min-h-[400px] resize-none uppercase" id="message-input" placeholder="PASTE SUSPICIOUS TEXT HERE..."></textarea>
+<div class="absolute bottom-6 right-6 flex items-center gap-4">
+<span class="font-bold bg-black text-white px-3 py-1 text-sm">CHAR_COUNT: 0 / 5000</span>
+<button class="bg-brutal-red text-white p-2 border-2 border-black brutal-shadow-sm active:translate-y-1 transition-all" title="WIPE BUFFER">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col md:flex-row border-t-thick border-black">
+<div class="flex-1 p-6 flex items-center gap-4 border-b-thick md:border-b-0 md:border-r-thick border-black bg-zinc-100">
+<span class="material-symbols-outlined text-4xl">radar</span>
+<span class="font-bold uppercase leading-tight">SCANNER PARAMETERS:<br/>PHISHING / MALWARE / SOCIAL_ENG</span>
+</div>
+<button class="bg-brutal-yellow p-8 text-2xl font-bold brutal-shadow-active hover:bg-black hover:text-white transition-colors">
+                        EXECUTE ANALYSIS_
+                    </button>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 space-y-8">
+<div class="border-thick border-black p-6 bg-white brutal-shadow">
+<h2 class="text-2xl font-bold mb-4 border-b-thick border-black pb-2">SYSTEM_LOGS</h2>
+<div class="space-y-4 font-mono text-sm">
+<div class="flex gap-2">
+<span class="text-zinc-400">[14:22:01]</span>
+<span>KERNEL_LOADED_OK</span>
+</div>
+<div class="flex gap-2">
+<span class="text-zinc-400">[14:22:05]</span>
+<span class="text-brutal-green">SECURITY_DB_UPDATED</span>
+</div>
+<div class="flex gap-2">
+<span class="text-zinc-400">[14:22:08]</span>
+<span>WAITING_FOR_USER_INPUT...</span>
+</div>
+</div>
+</div>
+<div class="border-thick border-black p-6 bg-black text-white brutal-shadow">
+<h2 class="text-2xl font-bold mb-4 text-brutal-yellow">SECURITY_ALERT</h2>
+<p class="mb-4">98.2% OF PHISHING ATTEMPTS USE DECEPTIVE LINKS.</p>
+<div class="h-2 bg-zinc-800 w-full">
+<div class="h-full bg-brutal-yellow w-[98.2%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-24">
+<h2 class="text-4xl font-bold mb-12 border-b-thick border-black inline-block pr-12 pb-2">PREVIOUS_SCANS_LOG</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="border-thick border-black bg-white brutal-shadow-sm overflow-hidden">
+<div class="bg-brutal-green p-4 border-b-thick border-black flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined font-bold">check_circle</span>
+<h3 class="font-bold text-xl">STATUS: CLEAN</h3>
+</div>
+<span class="font-bold border-2 border-black px-2 bg-white">TRUST: 98%</span>
+</div>
+<div class="p-6">
+<div class="bg-zinc-100 p-4 border-2 border-black mb-4 font-mono italic">
+                        "HI SARAH, YOUR PACKAGE FROM THE COURIER HAS BEEN DELIVERED. HOPE YOU ENJOY IT!"
+                    </div>
+<div class="flex items-center gap-2 font-bold text-sm uppercase">
+<span class="material-symbols-outlined text-sm">verified</span>
+                        NO MALICIOUS SIGNATURES DETECTED
+                    </div>
+</div>
+</div>
+<div class="border-thick border-black bg-white brutal-shadow-sm overflow-hidden">
+<div class="bg-brutal-red text-white p-4 border-b-thick border-black flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined font-bold">warning</span>
+<h3 class="font-bold text-xl">STATUS: THREAT_DETECTED</h3>
+</div>
+<span class="font-bold border-2 border-white px-2 bg-black">HIGH_RISK</span>
+</div>
+<div class="p-6">
+<div class="bg-brutal-red/10 p-4 border-2 border-brutal-red mb-4 font-mono font-bold">
+<span class="bg-brutal-red text-white px-1">URGENT:</span> YOUR ACCOUNT IS SUSPENDED. <span class="bg-black text-white px-1">CLICK HERE</span> IMMEDIATELY.
+                    </div>
+<div class="flex items-center gap-2 font-bold text-sm uppercase text-brutal-red">
+<span class="material-symbols-outlined text-sm">dangerous</span>
+                        MALICIOUS REDIRECT IDENTIFIED
+                    </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t-thick border-black bg-white">
+<div class="max-w-screen-2xl mx-auto px-6 py-12">
+<div class="flex flex-col md:flex-row justify-between items-end gap-12">
+<div class="space-y-4">
+<p class="text-4xl font-bold tracking-tighter">SPAMSENTRY_SYS</p>
+<p class="font-bold uppercase">SECURED BY AI // BUILT FOR RIGOR</p>
+<p class="text-sm">© 2023 ENCRYPTED_CORE_OPERATIONS. ALL RIGHTS RECLAIMED.</p>
+</div>
+<div class="flex flex-wrap gap-x-12 gap-y-4 font-bold uppercase underline decoration-thick decoration-brutal-yellow underline-offset-4">
+<a class="hover:bg-black hover:text-white px-1" href="#">PRIVACY_PROTOCOLS</a>
+<a class="hover:bg-black hover:text-white px-1" href="#">TERMS_OF_ENGAGEMENT</a>
+<a class="hover:bg-black hover:text-white px-1" href="#">SUPPORT_UPLINK</a>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>
