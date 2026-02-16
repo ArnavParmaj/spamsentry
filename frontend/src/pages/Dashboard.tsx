@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { supabase } from '../lib/supabaseClient';
-import type { User } from '@supabase/supabase-js';
+import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { supabase } from "../lib/supabaseClient";
 
 interface HistoryItem {
   id: string;
@@ -15,7 +14,6 @@ interface HistoryItem {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,9 +21,8 @@ export default function Dashboard() {
     // Check if user is logged in
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (!user) {
-        navigate('/login');
+        navigate("/login");
       } else {
-        setUser(user);
         fetchHistory(user.id);
       }
     });
@@ -35,7 +32,7 @@ export default function Dashboard() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) {
-        navigate('/login');
+        navigate("/login");
       }
     });
 
@@ -46,15 +43,15 @@ export default function Dashboard() {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('history')
-        .select('*')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false });
+        .from("history")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
       setHistory(data || []);
     } catch (error) {
-      console.error('Error fetching history:', error);
+      console.error("Error fetching history:", error);
     } finally {
       setLoading(false);
     }
@@ -62,17 +59,17 @@ export default function Dashboard() {
 
   const handleDelete = async (id: string) => {
     try {
-      const { error } = await supabase.from('history').delete().eq('id', id);
+      const { error } = await supabase.from("history").delete().eq("id", id);
       if (error) throw error;
       setHistory(history.filter((item) => item.id !== id));
     } catch (error) {
-      console.error('Error deleting item:', error);
+      console.error("Error deleting item:", error);
     }
   };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -84,12 +81,19 @@ export default function Dashboard() {
             <div className="flex items-center gap-12">
               <div className="flex items-center gap-3">
                 <div className="w-6 h-6 bg-black flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[16px] text-white">shield</span>
+                  <span className="material-symbols-outlined text-[16px] text-white">
+                    shield
+                  </span>
                 </div>
-                <span className="font-bold text-sm tracking-widest uppercase">Spamsentry</span>
+                <span className="font-bold text-sm tracking-widest uppercase">
+                  Spamsentry
+                </span>
               </div>
               <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase text-zinc-500">
-                <Link to="/scanner" className="hover:text-black transition-colors">
+                <Link
+                  to="/scanner"
+                  className="hover:text-black transition-colors"
+                >
                   Scanner
                 </Link>
                 <Link to="/dashboard" className="text-black">
@@ -147,7 +151,9 @@ export default function Dashboard() {
         ) : history.length === 0 ? (
           <div className="text-center p-16 border border-swiss-border bg-white">
             <p className="text-2xl font-medium mb-4">No scans found</p>
-            <p className="text-zinc-500 mb-8">Start analyzing messages to build your history.</p>
+            <p className="text-zinc-500 mb-8">
+              Start analyzing messages to build your history.
+            </p>
             <Link
               to="/scanner"
               className="inline-block px-8 py-3 bg-black text-white text-xs font-bold uppercase tracking-widest hover:bg-swiss-red transition-colors"
@@ -164,7 +170,7 @@ export default function Dashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`group border-l-2 pl-8 pb-12 ${
-                  item.is_spam ? 'border-swiss-red' : 'border-zinc-200'
+                  item.is_spam ? "border-swiss-red" : "border-zinc-200"
                 }`}
               >
                 <div className="flex justify-between items-start mb-6">
@@ -172,40 +178,48 @@ export default function Dashboard() {
                     <span
                       className={`swiss-label px-2 py-1 ${
                         item.is_spam
-                          ? 'bg-swiss-red text-white'
-                          : 'border border-zinc-200'
+                          ? "bg-swiss-red text-white"
+                          : "border border-zinc-200"
                       }`}
                     >
-                      {item.is_spam ? 'High Threat' : 'Verified'}
+                      {item.is_spam ? "High Threat" : "Verified"}
                     </span>
                     <span className="text-xs font-medium text-zinc-400">
                       {new Date(item.created_at).toLocaleDateString()}
                     </span>
                   </div>
-                  <span className={`text-2xl font-light ${item.is_spam ? 'text-swiss-red' : ''}`}>
-                    {item.is_spam ? 'Critical' : `${(item.confidence * 100).toFixed(0)}%`}
+                  <span
+                    className={`text-2xl font-light ${item.is_spam ? "text-swiss-red" : ""}`}
+                  >
+                    {item.is_spam
+                      ? "Critical"
+                      : `${(item.confidence * 100).toFixed(0)}%`}
                   </span>
                 </div>
 
                 <p
                   className={`text-lg mb-8 ${
-                    item.is_spam ? 'font-medium text-black' : 'font-light text-zinc-500 italic'
+                    item.is_spam
+                      ? "font-medium text-black"
+                      : "font-light text-zinc-500 italic"
                   }`}
                 >
                   &quot;{item.text.substring(0, 120)}
-                  {item.text.length > 120 ? '...' : ''}&quot;
+                  {item.text.length > 120 ? "..." : ""}&quot;
                 </p>
 
                 <div className="flex items-center justify-between">
                   <div
                     className={`flex items-center gap-2 swiss-label ${
-                      item.is_spam ? 'text-swiss-red' : 'text-black'
+                      item.is_spam ? "text-swiss-red" : "text-black"
                     }`}
                   >
                     <span className="material-symbols-outlined text-sm">
-                      {item.is_spam ? 'warning' : 'check'}
+                      {item.is_spam ? "warning" : "check"}
                     </span>
-                    {item.is_spam ? 'Malicious content identified' : 'Zero threat signatures detected'}
+                    {item.is_spam
+                      ? "Malicious content identified"
+                      : "Zero threat signatures detected"}
                   </div>
 
                   <button
@@ -213,7 +227,9 @@ export default function Dashboard() {
                     className="p-2 hover:text-swiss-red transition-colors"
                     title="Delete"
                   >
-                    <span className="material-symbols-outlined text-base">delete</span>
+                    <span className="material-symbols-outlined text-base">
+                      delete
+                    </span>
                   </button>
                 </div>
               </motion.div>

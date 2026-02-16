@@ -174,7 +174,7 @@ export default function Login() {
           ENCRYPTED: YES
         </div>
         <div className="flex items-center gap-4 pointer-events-auto">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-swiss-red">© 2024</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-swiss-red">© 2026</span>
         </div>
       </footer>
 
