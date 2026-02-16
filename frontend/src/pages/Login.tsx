@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Shield, Lock } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 
 export default function Login() {
@@ -46,172 +45,142 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 md:p-12 overflow-x-hidden bg-white">
-      <div
-        className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(#000 1px, transparent 1px)',
-          backgroundSize: '30px 30px',
-        }}
-      />
+    <div className="min-h-screen flex flex-col items-center justify-center p-8 md:p-24 bg-white selection:bg-black selection:text-white">
+      {/* Header */}
+      <header className="fixed top-12 left-0 right-0 px-8 md:px-24 flex justify-between items-baseline z-50">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-swiss-red"></div>
+          <span className="font-bold text-lg tracking-tighter">SPAMSENTRY AI</span>
+        </div>
+        <nav className="hidden md:block">
+          <span className="nav-link">System Status: 01</span>
+        </nav>
+      </header>
 
-      <main className="w-full max-w-6xl z-10 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 items-start">
-        {/* Left Section - Branding */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="neo-block p-10 md:p-16 space-y-8 md:mt-12"
-          style={{ transform: 'rotate(-1deg)' }}
-        >
-          <div className="inline-block border-4 border-black p-4 bg-[#F0FF00]">
-            <Shield className="text-6xl font-black block" size={64} />
-          </div>
+      {/* Main Content */}
+      <motion.main
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-[420px] py-24"
+      >
+        {/* Section Title */}
+        <section className="space-y-4 mb-12">
+          <span className="swiss-label text-gray-400">Identity Layer</span>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tighter leading-[0.9]">
+            Access the
+            <br />
+            Secure Portal.
+          </h1>
+        </section>
 
-          <div>
-            <h1 className="text-6xl md:text-8xl font-black uppercase leading-none tracking-tighter">
-              Spam
-              <br />
-              Sentry
-              <br />
-              AI
-            </h1>
-            <p className="mt-6 text-xl font-bold uppercase border-l-8 border-black pl-4">
-              Eliminate Noise.
-              <br />
-              Secure Everything.
-            </p>
-          </div>
-
-          <div className="pt-8">
-            <a
-              href="#"
-              className="inline-block font-black text-sm uppercase tracking-[0.2em] underline decoration-4 underline-offset-8 hover:bg-[#F0FF00] transition-colors"
-            >
-              System Status: Operational
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Right Section - Login Form */}
-        <div className="space-y-8 md:mt-24">
+        {/* Error Message */}
+        {error && (
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="neo-block p-8 md:p-12 bg-white"
-            style={{ transform: 'rotate(1deg)' }}
+            className="mb-8 p-4 border border-swiss-red bg-swiss-red/5 text-sm"
           >
-            <h2 className="text-3xl font-black uppercase mb-10 tracking-tighter italic">
-              Access Portal
-            </h2>
+            {error}
+          </motion.div>
+        )}
 
-            {error && (
-              <div className="mb-6 p-4 border-3 border-black bg-red-100 text-red-800 font-bold">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handleLogin} className="space-y-8">
+        {/* Login Form */}
+        <section>
+          <form onSubmit={handleLogin} className="space-y-12">
+            <div className="space-y-8">
+              {/* Email Input */}
               <div className="space-y-2">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-black uppercase tracking-widest"
-                >
-                  Identifier / Email
+                <label htmlFor="email" className="swiss-label">
+                  User Identification
                 </label>
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="neo-input"
-                  placeholder="USER@ORG.COM"
+                  className="swiss-input"
+                  placeholder="email@domain.com"
                   required
                 />
               </div>
 
+              {/* Password Input */}
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-black uppercase tracking-widest"
-                  >
-                    Security Code
-                  </label>
-                </div>
+                <label htmlFor="password" className="swiss-label">
+                  Security Key
+                </label>
                 <input
                   type="password"
                   id="password"
+                  name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="neo-input"
-                  placeholder="********"
+                  className="swiss-input"
+                  placeholder="••••••••"
                   required
                 />
-                <div className="text-right">
-                  <a
-                    href="#"
-                    className="text-xs font-bold uppercase underline decoration-2 underline-offset-4 hover:bg-[#F0FF00]"
-                  >
-                    Lost Code?
-                  </a>
-                </div>
               </div>
+            </div>
 
-              <div className="pt-4">
-                <button
-                  type="submit"
-                  className="neo-btn w-full"
-                  disabled={loading}
-                >
-                  {loading ? 'Authorizing...' : 'Authorize Access'}
-                </button>
-              </div>
-
-              <div className="relative flex items-center py-4">
-                <div className="flex-grow border-t-4 border-black" />
-                <span className="flex-shrink mx-4 font-black uppercase text-xs">
-                  Auth Layer 2
+            {/* Submit Button */}
+            <div className="flex flex-col gap-6">
+              <button
+                type="submit"
+                disabled={loading}
+                className="swiss-btn flex items-center justify-between group"
+              >
+                <span>{loading ? 'AUTHENTICATING...' : 'AUTHENTICATE'}</span>
+                <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
+                  arrow_forward
                 </span>
-                <div className="flex-grow border-t-4 border-black" />
-              </div>
+              </button>
 
+              {/* Links */}
+              <div className="flex justify-between items-center">
+                <Link to="/forgot-password" className="swiss-label hover:text-swiss-red transition-colors">
+                  Forgot Credentials
+                </Link>
+                <span className="h-px w-8 bg-gray-200"></span>
+                <Link to="/signup" className="swiss-label hover:text-swiss-red transition-colors">
+                  Register Account
+                </Link>
+              </div>
+            </div>
+
+            {/* Google SSO */}
+            <div className="pt-8 border-t border-gray-100">
               <button
                 type="button"
                 onClick={handleGoogleLogin}
-                className="w-full flex items-center justify-center gap-4 p-4 border-3 border-black font-bold uppercase text-sm hover:bg-black hover:text-white transition-all shadow-brutal-sm active:shadow-none translate-y-0 active:translate-y-1 bg-white"
+                className="w-full flex items-center justify-center gap-3 py-3 border border-black text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all"
               >
-                <span className="material-symbols-outlined">key</span>
-                <span>Google Identity</span>
+                <span className="material-symbols-outlined text-base">passkey</span>
+                Single Sign-On
               </button>
-            </form>
-          </motion.div>
+            </div>
+          </form>
+        </section>
+      </motion.main>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="neo-block bg-black text-white p-6"
-            style={{ transform: 'rotate(-0.5deg)' }}
-          >
-            <p className="text-center font-bold uppercase tracking-widest text-sm">
-              New Recruit?{' '}
-              <Link
-                to="/signup"
-                className="text-[#F0FF00] hover:underline decoration-[#F0FF00] underline-offset-4"
-              >
-                Enlist Now
-              </Link>
-            </p>
-          </motion.div>
+      {/* Footer */}
+      <footer className="fixed bottom-12 left-0 right-0 px-8 md:px-24 flex justify-between items-end pointer-events-none">
+        <div className="text-[10px] font-medium leading-relaxed max-w-[200px] text-gray-400">
+          STRATEGIC INTELLIGENCE
+          <br />
+          REF: SS-2024-AI-V1
+          <br />
+          ENCRYPTED: YES
         </div>
-      </main>
+        <div className="flex items-center gap-4 pointer-events-auto">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-swiss-red">© 2024</span>
+        </div>
+      </footer>
 
-      <div className="fixed bottom-8 left-8 z-20 hidden md:block">
-        <div className="border-3 border-black bg-white px-4 py-2 font-black uppercase text-[10px] tracking-[0.3em] flex items-center gap-2 shadow-brutal-sm">
-          <Lock size={12} />
-          Encrypted End-To-End
-        </div>
+      {/* Decorative Line */}
+      <div className="fixed left-8 top-1/2 -translate-y-1/2 h-48 w-px bg-gray-100 hidden lg:block">
+        <div className="absolute top-0 left-0 w-1 h-4 bg-swiss-red -translate-x-1/2"></div>
       </div>
     </div>
   );

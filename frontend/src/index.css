@@ -1,159 +1,99 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Lexend+Mega:wght@400;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --primary: #000000;
-  --accent: #f0ff00;
-  --neo-yellow: #fdff00;
-  --neo-blue: #0051ff;
-  --neo-pink: #ff00f5;
-  --neo-black: #000000;
-  --neo-white: #ffffff;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Space Grotesk", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.font-display {
-  font-family: "Lexend Mega", "Space Grotesk", sans-serif;
-}
-
-/* Neo-Brutalist Utility Classes */
-.neo-block {
-  border: 4px solid black;
-  background: white;
-  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-  transition: all 0.2s;
-}
-
-.neo-input {
-  border: 3px solid black;
-  padding: 1rem;
-  border-radius: 0;
-  width: 100%;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  letter-spacing: 0.1em;
-  background: white;
-}
-
-.neo-input:focus {
-  outline: none;
-  background: rgba(240, 255, 0, 0.1);
-}
-
-.neo-btn {
-  border: 3px solid black;
-  background: var(--accent);
-  padding: 1rem 2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.05em;
-  font-size: 1.25rem;
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-  transition: all 0.2s;
-  cursor: pointer;
-  border-radius: 0;
-}
-
-.neo-btn:hover {
-  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-  transform: translate(-1px, -1px);
-}
-
-.neo-btn:active {
-  box-shadow: none;
-  transform: translate(0, 0);
-}
-
-.shadow-brutal {
-  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-}
-
-.shadow-brutal-sm {
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-}
-
-.shadow-neo {
-  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-}
-
-.shadow-neo-sm {
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-}
-
-.shadow-neo-active {
-  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
-}
-
-/* Material Icons */
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
-
-.material-icons,
-.material-symbols-outlined {
-  font-family: "Material Icons", "Material Symbols Outlined";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-}
-
-/* Additional utility classes from HTML mockups */
-.asymmetric-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 2rem;
-}
-
-@media (max-width: 768px) {
-  .asymmetric-grid {
-    grid-template-columns: 1fr;
+@layer base {
+  body {
+    @apply font-sans bg-white text-foreground antialiased selection:bg-black selection:text-white;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
   }
 }
 
-.brutal-shadow {
-  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+@layer components {
+  /* Swiss Editorial Inputs */
+  .swiss-input {
+    @apply border-0 border-b border-black py-3 px-0 rounded-none focus:ring-0 focus:border-swiss-red w-full text-base transition-colors duration-200 placeholder-gray-300 bg-transparent;
+  }
+  
+  /* Swiss Editorial Buttons */
+  .swiss-btn {
+    @apply bg-black text-white px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-swiss-red transition-colors duration-300 active:scale-[0.98] border-0;
+  }
+  
+  .swiss-btn-outline {
+    @apply border-2 border-black bg-transparent text-black px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all duration-300;
+  }
+  
+  /* Navigation Links */
+  .nav-link {
+    @apply text-xs font-semibold uppercase tracking-widest text-gray-500 hover:text-swiss-red transition-colors duration-200;
+  }
+  
+  .nav-link-active {
+    @apply text-xs font-semibold uppercase tracking-widest text-black;
+  }
+  
+  /* Labels */
+  .swiss-label {
+    @apply text-[10px] font-bold uppercase tracking-widest text-gray-500;
+  }
+  
+  /* Status Indicators */
+  .status-dot {
+    @apply w-2 h-2 rounded-full inline-block;
+  }
+  
+  /* Grid Lines (Editorial Style) */
+  .grid-line-x {
+    background-image: linear-gradient(to right, #E5E5E5 1px, transparent 1px);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+  }
+  
+  .grid-line-y {
+    background-image: linear-gradient(to bottom, #E5E5E5 1px, transparent px);
+    background-size: 1px 100%;
+    background-repeat: no-repeat;
+  }
+  
+  /* Cards with subtle borders */
+  .swiss-card {
+    @apply border border-swiss-border bg-white p-6;
+  }
+  
+  /* Asymmetric Grid */
+  .asymmetric-grid {
+    @apply grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-0;
+  }
 }
 
-.brutal-shadow-sm {
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+@layer utilities {
+  /* Custom Tracking */
+  .tracking-tighter {
+    letter-spacing: -.04em;
+  }
+  
+  .tracking-tight {
+    letter-spacing: -.02em;  }
+  
+  .tracking-widest {
+    letter-spacing: .15em;
+  }
+  
+  /* Text Styles */
+  .text-editorial {
+    @apply text-6xl md:text-8xl font-medium tracking-tighter leading-[0.9];
+  }
+  
+  .text-micro {
+    @apply text-[10px] font-bold uppercase tracking-widest;
+  }
+  
+  /* Backdrop Blur for Nav */
+  .nav-blur {
+    @apply bg-white/80 backdrop-blur-md;
+  }
 }
-
-.brutal-shadow-hover:hover {
-  box-shadow: 12px 12px 0px 0px rgba(0, 0, 0, 1);
-  transform: translate(-4px, -4px);
-}
-
-.brutal-shadow-active:active {
-  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
-  transform: translate(8px, 8px);
-}
-
-.sharp-corners {
-  border-radius: 0 !important;
-}
-
-textarea {
-  border-radius: 0 !important;
-}
-
-input:focus {
-  outline: none !important;
-}
-

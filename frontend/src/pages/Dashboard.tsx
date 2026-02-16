@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Shield, Bell, AlertTriangle, CheckCircle, Trash2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import type { User } from '@supabase/supabase-js';
 
@@ -76,44 +76,33 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="antialiased min-h-screen bg-white">
+    <div className="min-h-screen bg-white selection:bg-black selection:text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white border-b-[6px] border-black">
-        <div className="max-w-screen-2xl mx-auto px-6">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center gap-4 border-r-[6px] border-black h-20 pr-8">
-              <div className="w-10 h-10 bg-black text-white flex items-center justify-center">
-                <Shield size={32} />
+      <nav className="border-b border-swiss-border sticky top-0 bg-white/80 backdrop-blur-md z-50">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center gap-12">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 bg-black flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[16px] text-white">shield</span>
+                </div>
+                <span className="font-bold text-sm tracking-widest uppercase">Spamsentry</span>
               </div>
-              <span className="font-bold text-2xl font-display uppercase tracking-tighter">
-                SPAMSENTRY
-              </span>
+              <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase text-zinc-500">
+                <Link to="/scanner" className="hover:text-black transition-colors">
+                  Scanner
+                </Link>
+                <Link to="/dashboard" className="text-black">
+                  History
+                </Link>
+              </div>
             </div>
-
-            <div className="hidden md:flex h-20">
-              <Link
-                to="/scanner"
-                className="flex items-center px-8 border-l-[6px] border-black hover:bg-black hover:text-white transition-all font-display uppercase"
-              >
-                SCANNER
-              </Link>
-              <Link
-                to="/dashboard"
-                className="flex items-center px-8 border-l-[6px] border-black bg-[#FCFF00] font-bold hover:invert transition-all font-display uppercase"
-              >
-                HISTORY
-              </Link>
-            </div>
-
-            <div className="flex items-center gap-0 h-20">
-              <button className="h-20 w-20 border-l-[6px] border-black flex items-center justify-center hover:bg-[#FCFF00] transition-colors">
-                <Bell size={24} />
-              </button>
+            <div className="flex items-center gap-6">
               <button
                 onClick={handleLogout}
-                className="h-20 px-6 border-l-[6px] border-black flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-colors font-display uppercase font-bold text-sm"
+                className="text-[11px] font-bold uppercase tracking-widest text-zinc-500 hover:text-swiss-red transition-colors"
               >
-                LOGOUT
+                Logout
               </button>
             </div>
           </div>
@@ -121,110 +110,113 @@ export default function Dashboard() {
       </nav>
 
       {/* Main Content */}
-      <main className="relative pt-32 pb-24 px-6 max-w-screen-2xl mx-auto">
-        <div className="mb-16 border-l-[6px] border-black pl-8">
-          <h1 className="text-6xl md:text-8xl font-bold leading-none mb-6 font-display uppercase tracking-tighter">
-            SCAN HISTORY:
-            <br />
-            ARCHIVED ANALYSES.
+      <main className="max-w-7xl mx-auto px-8 py-20">
+        {/* Header */}
+        <motion.header
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-24"
+        >
+          <div className="flex items-center gap-2 mb-6">
+            <span className="status-dot bg-black"></span>
+            <span className="swiss-label text-zinc-500">Archive Interface</span>
+          </div>
+          <h1 className="text-6xl md:text-8xl font-medium tracking-tighter leading-[0.9] mb-12">
+            Scan History
           </h1>
-          <p className="text-xl max-w-2xl font-bold uppercase bg-black text-white p-2 inline-block font-display">
-            TOTAL SCANS: {history.length}
-          </p>
-        </div>
+          <div className="flex items-center gap-12 pt-12 border-t border-swiss-border">
+            <div>
+              <p className="swiss-label text-zinc-400 mb-2">Total Scans</p>
+              <p className="text-2xl font-medium">{history.length}</p>
+            </div>
+            <div>
+              <p className="swiss-label text-zinc-400 mb-2">Threats Detected</p>
+              <p className="text-2xl font-medium text-swiss-red">
+                {history.filter((item) => item.is_spam).length}
+              </p>
+            </div>
+          </div>
+        </motion.header>
 
+        {/* Content */}
         {loading ? (
           <div className="text-center p-12">
-            <p className="text-2xl font-bold font-display uppercase">LOADING...</p>
+            <p className="text-xl font-medium">Loading history...</p>
           </div>
         ) : history.length === 0 ? (
-          <div className="text-center p-12 border-[6px] border-black bg-white shadow-brutal">
-            <p className="text-2xl font-bold font-display uppercase mb-4">
-              NO SCANS FOUND
-            </p>
-            <p className="font-mono">Start analyzing messages to build your history.</p>
+          <div className="text-center p-16 border border-swiss-border bg-white">
+            <p className="text-2xl font-medium mb-4">No scans found</p>
+            <p className="text-zinc-500 mb-8">Start analyzing messages to build your history.</p>
             <Link
               to="/scanner"
-              className="inline-block mt-6 px-8 py-4 bg-[#FCFF00] border-3 border-black font-bold uppercase shadow-brutal-sm hover:shadow-brutal transition-all"
+              className="inline-block px-8 py-3 bg-black text-white text-xs font-bold uppercase tracking-widest hover:bg-swiss-red transition-colors"
             >
-              GO TO SCANNER
+              Go to Scanner
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {history.map((item) => (
-              <div
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {history.map((item, index) => (
+              <motion.div
                 key={item.id}
-                className="border-[6px] border-black bg-white shadow-brutal-sm overflow-hidden"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`group border-l-2 pl-8 pb-12 ${
+                  item.is_spam ? 'border-swiss-red' : 'border-zinc-200'
+                }`}
               >
-                <div
-                  className={`p-4 border-b-[6px] border-black flex justify-between items-center ${
-                    item.is_spam
-                      ? 'bg-[#FF0000] text-white'
-                      : 'bg-[#00FF41] text-black'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    {item.is_spam ? (
-                      <AlertTriangle size={24} />
-                    ) : (
-                      <CheckCircle size={24} />
-                    )}
-                    <h3 className="font-bold text-xl font-display uppercase">
-                      {item.is_spam ? 'THREAT_DETECTED' : 'CLEAN'}
-                    </h3>
+                <div className="flex justify-between items-start mb-6">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`swiss-label px-2 py-1 ${
+                        item.is_spam
+                          ? 'bg-swiss-red text-white'
+                          : 'border border-zinc-200'
+                      }`}
+                    >
+                      {item.is_spam ? 'High Threat' : 'Verified'}
+                    </span>
+                    <span className="text-xs font-medium text-zinc-400">
+                      {new Date(item.created_at).toLocaleDateString()}
+                    </span>
                   </div>
-                  <span
-                    className={`font-bold border-2 px-2 ${
-                      item.is_spam
-                        ? 'border-white bg-black text-white'
-                        : 'border-black bg-white text-black'
-                    }`}
-                  >
-                    {item.is_spam ? 'HIGH_RISK' : `TRUST: ${(item.confidence * 100).toFixed(0)}%`}
+                  <span className={`text-2xl font-light ${item.is_spam ? 'text-swiss-red' : ''}`}>
+                    {item.is_spam ? 'Critical' : `${(item.confidence * 100).toFixed(0)}%`}
                   </span>
                 </div>
 
-                <div className="p-6">
+                <p
+                  className={`text-lg mb-8 ${
+                    item.is_spam ? 'font-medium text-black' : 'font-light text-zinc-500 italic'
+                  }`}
+                >
+                  &quot;{item.text.substring(0, 120)}
+                  {item.text.length > 120 ? '...' : ''}&quot;
+                </p>
+
+                <div className="flex items-center justify-between">
                   <div
-                    className={`p-4 border-2 mb-4 font-mono ${
-                      item.is_spam
-                        ? 'bg-[#FF0000]/10 border-[#FF0000]'
-                        : 'bg-zinc-100 border-black'
+                    className={`flex items-center gap-2 swiss-label ${
+                      item.is_spam ? 'text-swiss-red' : 'text-black'
                     }`}
                   >
-                    &quot;{item.text.substring(0, 150)}
-                    {item.text.length > 150 ? '...' : ''}&quot;
+                    <span className="material-symbols-outlined text-sm">
+                      {item.is_spam ? 'warning' : 'check'}
+                    </span>
+                    {item.is_spam ? 'Malicious content identified' : 'Zero threat signatures detected'}
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div
-                      className={`flex items-center gap-2 font-bold text-sm uppercase ${
-                        item.is_spam ? 'text-[#FF0000]' : 'text-black'
-                      }`}
-                    >
-                      {item.is_spam ? (
-                        <span className="material-symbols-outlined text-sm">dangerous</span>
-                      ) : (
-                        <span className="material-symbols-outlined text-sm">verified</span>
-                      )}
-                      {item.result}
-                    </div>
-
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="p-2 border-2 border-black hover:bg-[#FF0000] hover:text-white transition-all"
-                      title="Delete"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-
-                  <p className="text-xs text-zinc-500 mt-4 font-mono">
-                    {new Date(item.created_at).toLocaleString()}
-                  </p>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="p-2 hover:text-swiss-red transition-colors"
+                    title="Delete"
+                  >
+                    <span className="material-symbols-outlined text-base">delete</span>
+                  </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         )}

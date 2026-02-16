@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SPAMSENTRY // ANALYTICAL INTERFACE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "swiss-red": "#E60000",
+                        "swiss-gray": "#F5F5F7",
+                        "swiss-border": "#E5E5E5",
+                        "background": "#FFFFFF",
+                        "foreground": "#000000",
+                    },
+                    fontFamily: {
+                        "sans": ["'Inter'", "sans-serif"],
+                    },
+                    borderWidth: {
+                        "DEFAULT": "1px",
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-background text-foreground font-sans antialiased;
+            }
+            h1, h2, h3 {
+                @apply tracking-tight font-semibold;
+            }
+        }
+        .grid-line-x {
+            background-image: linear-gradient(to right, #E5E5E5 1px, transparent 1px);
+            background-size: 100% 1px;
+            background-repeat: no-repeat;
+        }
+        .grid-line-y {
+            background-image: linear-gradient(to bottom, #E5E5E5 1px, transparent 1px);
+            background-size: 1px 100%;
+            background-repeat: no-repeat;
+        }
+        textarea::placeholder {
+            color: #A1A1AA;
+            font-weight: 300;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="selection:bg-black selection:text-white">
+<nav class="border-b border-swiss-border sticky top-0 bg-white/80 backdrop-blur-md z-50">
+<div class="max-w-7xl mx-auto px-8">
+<div class="flex justify-between items-center h-16">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 bg-black flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-white">shield</span>
+</div>
+<span class="font-bold text-sm tracking-widest uppercase">Spamsentry</span>
+</div>
+<div class="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase text-zinc-500">
+<a class="text-black" href="#">Scanner</a>
+<a class="hover:text-black transition-colors" href="#">History</a>
+<a class="hover:text-black transition-colors" href="#">Documentation</a>
+<a class="hover:text-black transition-colors" href="#">System</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-zinc-400 hover:text-black transition-colors">
+<span class="material-symbols-outlined text-xl">search</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-swiss-border bg-zinc-100">
+<img alt="User profile" class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnod8Mc1fuydDi-l701minfZf8t8os1EdiB16PkhSg56ybffLh-ztzVTXrQyrtnybCbda5dMEecPHR8Mvct_Z_0eX1DvSg_GXFBZxQgl_hqPiCrgg5Y-dtqt5QEdr3fYIZMOH0p5YKyFZstm82E8lIO3iI04H8vZFaKWds3AOdFro7I6jEzFdOT7gq9Dtk-M3MD4RHpai76Gy8q4ijpnWgjRBd79zm6VChgZdwSzti9V_X6Ze8hqckDSCbrHKUzza4fIzRKqgbwEpl"/>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-8 py-20">
+<header class="mb-24 max-w-4xl">
+<div class="flex items-center gap-2 mb-6">
+<span class="status-dot bg-black"></span>
+<span class="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500">Interface 01 // Security Protocol</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-medium tracking-tighter leading-[0.9] mb-12">
+            Automated Threat Analysis <span class="text-zinc-300">&amp;</span> Verification.
+        </h1>
+<div class="flex flex-wrap gap-12 pt-12 border-t border-swiss-border">
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-2">System Status</p>
+<p class="text-sm font-medium">Operational. All clusters active.</p>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-2">Neural Engine</p>
+<p class="text-sm font-medium">v4.2.0-Editorial</p>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-2">Last Update</p>
+<p class="text-sm font-medium">04 Mins Ago</p>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-px bg-swiss-border border border-swiss-border overflow-hidden">
+<div class="lg:col-span-8 bg-white p-12">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-xs font-bold uppercase tracking-widest mb-1">Input Buffer</h2>
+<p class="text-xs text-zinc-400">Target string for security evaluation</p>
+</div>
+<div class="text-[10px] font-bold text-zinc-400 uppercase tracking-tighter">
+                    Max: 5,000 Characters
+                </div>
+</div>
+<textarea class="block w-full border-0 p-0 text-3xl font-light focus:ring-0 min-h-[300px] resize-none leading-tight placeholder:text-zinc-200" placeholder="Insert text for analysis..."></textarea>
+<div class="mt-12 flex justify-between items-center pt-8 border-t border-swiss-border">
+<div class="flex gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-zinc-400">check_circle</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Phishing</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-zinc-400">check_circle</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Malware</span>
+</div>
+</div>
+<button class="bg-black text-white px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-zinc-800 transition-colors">
+                    Execute Analysis
+                </button>
+</div>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-px">
+<div class="bg-white p-10 h-full">
+<h3 class="text-xs font-bold uppercase tracking-widest mb-6">Real-time Logs</h3>
+<div class="space-y-4">
+<div class="flex justify-between text-[11px]">
+<span class="text-zinc-400 font-medium">14:22:01</span>
+<span class="font-medium uppercase">Kernel verified</span>
+</div>
+<div class="flex justify-between text-[11px]">
+<span class="text-zinc-400 font-medium">14:22:05</span>
+<span class="font-medium uppercase text-zinc-400">Database sync...</span>
+</div>
+<div class="flex justify-between text-[11px]">
+<span class="text-zinc-400 font-medium">14:22:08</span>
+<span class="font-medium uppercase">Awaiting instruction</span>
+</div>
+</div>
+</div>
+<div class="bg-black p-10 text-white">
+<div class="flex items-center gap-2 mb-4">
+<span class="status-dot bg-swiss-red"></span>
+<h3 class="text-xs font-bold uppercase tracking-widest">System Alert</h3>
+</div>
+<p class="text-2xl font-light leading-tight mb-8">Critical correlation: 98.2% of attacks utilize masked redirection.</p>
+<div class="h-[1px] bg-zinc-800 w-full relative">
+<div class="absolute top-0 left-0 h-full bg-swiss-red w-[98.2%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-32">
+<div class="flex items-center justify-between mb-12">
+<h2 class="text-2xl font-medium tracking-tight">Recent Activity</h2>
+<div class="h-px flex-grow mx-8 bg-swiss-border"></div>
+<button class="text-[11px] font-bold uppercase tracking-widest underline underline-offset-8">View Archive</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="group border-l border-swiss-border pl-8 pb-12">
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 border border-zinc-200">Verified</span>
+<span class="text-xs font-medium text-zinc-400">Log ID: #8821</span>
+</div>
+<span class="text-2xl font-light">98%</span>
+</div>
+<p class="text-lg font-light text-zinc-500 italic mb-8">"Hi Sarah, your package from the courier has been delivered. Hope you enjoy it!"</p>
+<div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+<span class="material-symbols-outlined text-sm">check</span>
+                    Zero threat signatures detected
+                </div>
+</div>
+<div class="group border-l-2 border-swiss-red pl-8 pb-12">
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 bg-swiss-red text-white">High Threat</span>
+<span class="text-xs font-medium text-zinc-400">Log ID: #8822</span>
+</div>
+<span class="text-2xl font-light text-swiss-red">Critical</span>
+</div>
+<p class="text-lg font-medium text-black mb-8">"URGENT: Your account is suspended. CLICK HERE immediately to resolve."</p>
+<div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-swiss-red">
+<span class="material-symbols-outlined text-sm">warning</span>
+                    Malicious redirect identified in payload
+                </div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-swiss-border bg-white mt-20">
+<div class="max-w-7xl mx-auto px-8 py-16">
+<div class="flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="space-y-6">
+<p class="text-xl font-bold tracking-widest uppercase">Spamsentry_</p>
+<p class="text-xs font-medium text-zinc-400 max-w-xs leading-relaxed">
+                    Advanced linguistic security for high-stakes environments. Minimalist in form, maximalist in precision.
+                </p>
+</div>
+<div class="flex flex-wrap gap-12 text-[10px] font-bold uppercase tracking-[0.2em]">
+<div class="flex flex-col gap-3">
+<p class="text-zinc-300 mb-2">Legal</p>
+<a class="hover:text-swiss-red transition-colors" href="#">Privacy</a>
+<a class="hover:text-swiss-red transition-colors" href="#">Compliance</a>
+</div>
+<div class="flex flex-col gap-3">
+<p class="text-zinc-300 mb-2">Network</p>
+<a class="hover:text-swiss-red transition-colors" href="#">API Status</a>
+<a class="hover:text-swiss-red transition-colors" href="#">Uplink</a>
+</div>
+<div class="flex flex-col gap-3">
+<p class="text-zinc-300 mb-2">Identity</p>
+<p class="text-zinc-500">© 2024 Spamsentry Core</p>
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>
