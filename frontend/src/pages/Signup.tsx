@@ -1,28 +1,28 @@
-import { useState, type FormEvent } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { supabase } from '../lib/supabaseClient';
+import { useState, type FormEvent } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { supabase } from "../lib/supabaseClient";
 
 export default function Signup() {
   const navigate = useNavigate();
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSignup = async (e: FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError("Password must be at least 6 characters");
       return;
     }
 
@@ -42,10 +42,10 @@ export default function Signup() {
       if (error) throw error;
 
       if (data.user) {
-        navigate('/login');
+        navigate("/login");
       }
     } catch (err: any) {
-      setError(err.message || 'Error creating account');
+      setError(err.message || "Error creating account");
     } finally {
       setLoading(false);
     }
@@ -64,7 +64,9 @@ export default function Signup() {
           <div>
             <div className="flex items-center gap-2 mb-24">
               <span className="material-symbols-outlined text-4xl">shield</span>
-              <span className="text-xs font-bold tracking-[0.2em] uppercase">SpamSentry</span>
+              <span className="text-xs font-bold tracking-[0.2em] uppercase">
+                SpamSentry
+              </span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold leading-[0.9] tracking-tighter uppercase mb-12">
               System
@@ -77,8 +79,12 @@ export default function Signup() {
           <div className="space-y-4">
             <div className="h-px bg-white/20 w-full"></div>
             <div className="flex justify-between items-end">
-              <p className="text-[10px] tracking-widest uppercase opacity-60">Version 2.0.4.81</p>
-              <p className="text-[10px] tracking-widest uppercase opacity-60">©2024</p>
+              <p className="text-[10px] tracking-widest uppercase opacity-60">
+                Version 2.0.4.81
+              </p>
+              <p className="text-[10px] tracking-widest uppercase opacity-60">
+                ©2024
+              </p>
             </div>
           </div>
         </motion.header>
@@ -165,7 +171,10 @@ export default function Signup() {
 
                 {/* Confirm Password */}
                 <div className="flex flex-col">
-                  <label htmlFor="confirm-password" className="swiss-label mb-1">
+                  <label
+                    htmlFor="confirm-password"
+                    className="swiss-label mb-1"
+                  >
                     Verification
                   </label>
                   <input
@@ -187,7 +196,7 @@ export default function Signup() {
                   disabled={loading}
                   className="bg-swiss-red text-white px-12 py-5 text-xs font-bold uppercase tracking-[0.2em] hover:bg-black transition-colors"
                 >
-                  {loading ? 'CREATING ACCOUNT...' : 'INITIALIZE ACCOUNT'}
+                  {loading ? "CREATING ACCOUNT..." : "INITIALIZE ACCOUNT"}
                 </button>
                 <div className="flex flex-col items-start">
                   <span className="swiss-label opacity-40 mb-1">Status</span>
@@ -205,17 +214,27 @@ export default function Signup() {
             <footer className="mt-32 border-t border-swiss-gray pt-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <p className="text-[10px] leading-relaxed text-gray-400 uppercase tracking-wider">
-                  By proceeding, you authorize the encryption protocol and accept the regulatory terms
-                  governing automated defense systems.
+                  By proceeding, you authorize the encryption protocol and
+                  accept the regulatory terms governing automated defense
+                  systems.
                 </p>
                 <div className="flex gap-4 md:justify-end text-[10px] font-bold uppercase tracking-widest">
-                  <a href="#" className="hover:text-swiss-red transition-colors">
+                  <a
+                    href="#"
+                    className="hover:text-swiss-red transition-colors"
+                  >
                     Legal
                   </a>
-                  <a href="#" className="hover:text-swiss-red transition-colors">
+                  <a
+                    href="#"
+                    className="hover:text-swiss-red transition-colors"
+                  >
                     Privacy
                   </a>
-                  <a href="#" className="hover:text-swiss-red transition-colors">
+                  <a
+                    href="#"
+                    className="hover:text-swiss-red transition-colors"
+                  >
                     Nodes
                   </a>
                 </div>

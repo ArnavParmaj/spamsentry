@@ -1,19 +1,19 @@
-import { useState, type FormEvent } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { supabase } from '../lib/supabaseClient';
+import { useState, type FormEvent } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { supabase } from "../lib/supabaseClient";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -24,10 +24,10 @@ export default function Login() {
       if (error) throw error;
 
       if (data.user) {
-        navigate('/scanner');
+        navigate("/scanner");
       }
     } catch (err: any) {
-      setError(err.message || 'Invalid login credentials');
+      setError(err.message || "Invalid login credentials");
     } finally {
       setLoading(false);
     }
@@ -36,7 +36,7 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+        provider: "google",
       });
       if (error) throw error;
     } catch (err: any) {
@@ -50,7 +50,9 @@ export default function Login() {
       <header className="fixed top-12 left-0 right-0 px-8 md:px-24 flex justify-between items-baseline z-50">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-swiss-red"></div>
-          <span className="font-bold text-lg tracking-tighter">SPAMSENTRY AI</span>
+          <span className="font-bold text-lg tracking-tighter">
+            SPAMSENTRY AI
+          </span>
         </div>
         <nav className="hidden md:block">
           <span className="nav-link">System Status: 01</span>
@@ -90,7 +92,7 @@ export default function Login() {
           <form onSubmit={handleLogin} className="space-y-12">
             <div className="space-y-8">
               {/* Email Input */}
-              <div className="space-y-2">
+              <div className="space-y-6">
                 <label htmlFor="email" className="swiss-label">
                   User Identification
                 </label>
@@ -107,7 +109,7 @@ export default function Login() {
               </div>
 
               {/* Password Input */}
-              <div className="space-y-2">
+              <div className="space-y-6">
                 <label htmlFor="password" className="swiss-label">
                   Security Key
                 </label>
@@ -131,7 +133,7 @@ export default function Login() {
                 disabled={loading}
                 className="swiss-btn flex items-center justify-between group"
               >
-                <span>{loading ? 'AUTHENTICATING...' : 'AUTHENTICATE'}</span>
+                <span>{loading ? "AUTHENTICATING..." : "AUTHENTICATE"}</span>
                 <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
                   arrow_forward
                 </span>
@@ -139,11 +141,17 @@ export default function Login() {
 
               {/* Links */}
               <div className="flex justify-between items-center">
-                <Link to="/forgot-password" className="swiss-label hover:text-swiss-red transition-colors">
+                <Link
+                  to="/forgot-password"
+                  className="swiss-label hover:text-swiss-red transition-colors"
+                >
                   Forgot Credentials
                 </Link>
                 <span className="h-px w-8 bg-gray-200"></span>
-                <Link to="/signup" className="swiss-label hover:text-swiss-red transition-colors">
+                <Link
+                  to="/signup"
+                  className="swiss-label hover:text-swiss-red transition-colors"
+                >
                   Register Account
                 </Link>
               </div>
@@ -156,7 +164,9 @@ export default function Login() {
                 onClick={handleGoogleLogin}
                 className="w-full flex items-center justify-center gap-3 py-3 border border-black text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all"
               >
-                <span className="material-symbols-outlined text-base">passkey</span>
+                <span className="material-symbols-outlined text-base">
+                  passkey
+                </span>
                 Single Sign-On
               </button>
             </div>
@@ -169,12 +179,14 @@ export default function Login() {
         <div className="text-[10px] font-medium leading-relaxed max-w-[200px] text-gray-400">
           STRATEGIC INTELLIGENCE
           <br />
-          REF: SS-2024-AI-V1
+          REF: SS-2026-AI-V1
           <br />
           ENCRYPTED: YES
         </div>
         <div className="flex items-center gap-4 pointer-events-auto">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-swiss-red">© 2026</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-swiss-red">
+            © 2026
+          </span>
         </div>
       </footer>
 
