@@ -17,6 +17,7 @@ CREATE TABLE history (
   result VARCHAR(50) NOT NULL,           -- "SPAM" or "HAM" 
   confidence DECIMAL(5,2) NOT NULL,      -- Confidence score (0.00 to 1.00)
   is_spam BOOLEAN NOT NULL DEFAULT false, -- Quick boolean flag
+  model_type VARCHAR(10) DEFAULT 'sms',  -- Model used: 'email', 'url', or 'sms'
   
   -- Metadata
   created_at TIMESTAMPTZ DEFAULT NOW(),  -- Timestamp of the scan
