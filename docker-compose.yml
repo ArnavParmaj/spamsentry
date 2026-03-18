@@ -1,0 +1,39 @@
+services:
+  ml_service:
+    build: 
+      context: ./ml_service
+    container_name: spamsentry_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ml_service:/app
+      # Exclude venv from volume mount to avoid conflicts with container environment
+      - /app/.venv
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - spamsentry_net
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: spamsentry_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+      # Create a .env file in ./frontend with your Supabase keys
+      # or uncomment and set them here:
+      # - VITE_SUPABASE_URL=your_supabase_url
+      # - VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+    depends_on:
+      - ml_service
+    networks:
+      - spamsentry_net
+
+networks:
+  spamsentry_net:
+    driver: bridge
