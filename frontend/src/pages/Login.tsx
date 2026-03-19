@@ -92,7 +92,7 @@ export default function Login() {
           <form onSubmit={handleLogin} className="space-y-12">
             <div className="space-y-8">
               {/* Email Input */}
-              <div className="space-y-6">
+              <div className="flex flex-col gap-3">
                 <label htmlFor="email" className="swiss-label">
                   User Identification
                 </label>
@@ -109,7 +109,7 @@ export default function Login() {
               </div>
 
               {/* Password Input */}
-              <div className="space-y-6">
+              <div className="flex flex-col gap-3">
                 <label htmlFor="password" className="swiss-label">
                   Security Key
                 </label>

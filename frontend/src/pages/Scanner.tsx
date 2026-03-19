@@ -290,7 +290,7 @@ export default function Scanner() {
                     </span>
                   )}
                   <h3 className="text-2xl font-medium">
-                    {result.is_spam ? "Threat Detected" : "Clean Message"}
+                    {result.is_spam ? "Threat Detected" : `Clean ${activeModel.label}`}
                   </h3>
                 </div>
                 <div className="space-y-2 text-sm">
