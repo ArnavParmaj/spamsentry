@@ -33,16 +33,7 @@ export default function Login() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-      });
-      if (error) throw error;
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8 md:p-24 bg-white selection:bg-black selection:text-white">
@@ -157,19 +148,7 @@ export default function Login() {
               </div>
             </div>
 
-            {/* Google SSO */}
-            <div className="pt-8 border-t border-gray-100">
-              <button
-                type="button"
-                onClick={handleGoogleLogin}
-                className="w-full flex items-center justify-center gap-3 py-3 border border-black text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all"
-              >
-                <span className="material-symbols-outlined text-base">
-                  passkey
-                </span>
-                Single Sign-On
-              </button>
-            </div>
+
           </form>
         </section>
       </motion.main>
